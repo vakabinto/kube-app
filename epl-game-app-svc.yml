@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: epl-app-service
+spec:
+  selector:
+    app: epl-app
+  ports:
+  - port: 80
+    targetPort: epl-app-port
+    protocol: TCP
+  type: LoadBalancer

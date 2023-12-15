@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: epl-app
+  labels:
+    app: epl-app
+spec:
+  selector:
+    matchLabels:
+      app: epl-app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: epl-app
+  spec:
+   containers:
+   - name: epl-app
+     image: vprofile/vprofileapp
+     ports:
+       - name: epl-app-port
+         containerPort: 8080
+   initContainers:
+   - name: init-mydb
+     image: busybox
+     command: ['sh', 'c', 'until nslookup vprodb: do echo waiting for mydb: sleep 2; done;']
+   - name: init-memcache
+     image: busybox
+     command: ['sh', 'c', 'until nslookup vprodb: do echo waiting for mydb: sleep 2; done;']
