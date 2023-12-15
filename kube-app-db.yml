@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: vprodb
-        image: vprofile/vprofiledb:v1
+        image: vprofile/vprofiledb
         volumeMounts:
         - mountPath: /var/lib/mysql
           name: vpro-db-data
@@ -35,11 +35,11 @@ spec:
         - name: vpro-db-data
           awsElasticBlockStore:
             volumeID: vol-07bf59d85be9478fd
-  initContainers:
-  - name: busybox
-    image: busybox:latest
-    command: ["sh", "-c", "rm -rf /var/lib/mysql/lost+found"]
-    volumeMounts:
-    - name: vpro-db-data
-      mountPath: /var/lib/mysql
+      initContainers:
+      - name: busybox
+        image: busybox:latest
+        command: ["sh", "-c", "rm -rf /var/lib/mysql/lost+found"]
+        volumeMounts:
+        - name: vpro-db-data
+          mountPath: /var/lib/mysql
 
